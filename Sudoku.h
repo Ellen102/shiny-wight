@@ -37,12 +37,8 @@ typedef struct SudokuVakje {
 typedef struct SudokuVierkant{
 	word inhoud;
 	unsigned int vierkantnr;
-	struct SudokuRij* rij_een;
-	struct SudokuRij* rij_twee;
-	struct SudokuRij* rij_drie;
-	struct SudokuKolom* kolom_een;
-	struct SudokuKolom* kolom_twee;
-	struct SudokuKolom* kolom_drie;
+	struct SudokuRij* rijen[3];
+	struct SudokuKolom*kolommen[3];
 } SudokuVierkant;
 
 typedef struct SudokuRij{
