@@ -44,6 +44,11 @@ int main(void)
 	PRINTNEWLINE;
 
 	print_sudoku_rijkolom(s);
+	PRINTNEWLINE;PRINTNEWLINE;PRINTNEWLINE;PRINTNEWLINE;
+	print_sudoku_inhoud(s);
+
+
+
 
 	free_sudoku(s);
 	//Memory leaks test

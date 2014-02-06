@@ -1,4 +1,4 @@
-﻿Build started 6/02/2014 13:46:28.
+﻿Build started 6/02/2014 18:39:37.
      1>Project "C:\Users\Ellen\Documents\2 informatica\softwareontwikkeling1\oefeningen\MySudoku\MySudoku\MySudoku.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\MySudoku.unsuccessfulbuild" because "AlwaysCreate" was specified.
@@ -20,4 +20,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.15
+Time Elapsed 00:00:00.66

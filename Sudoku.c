@@ -1,7 +1,7 @@
 #include "Sudoku.h"
 
 Sudoku* initlizeSudoku (){
-	int i,j;
+	int i,j,c,a,b;
 	SudokuKolom *k1=NULL, *volgendekolom=NULL, *vorigekolom=NULL ;
 	SudokuRij *r1=NULL, *volgenderij=NULL, *vorigerij=NULL ;
 	SudokuVierkant *v1=NULL,*volgendevierkant=NULL, *vorigevierkant=NULL ;
@@ -58,32 +58,6 @@ Sudoku* initlizeSudoku (){
 	}
 	vorigerij->onder=NULL;
 	s->eersterij=r1;
-
-
-
-	//vierkant
-	v1 = (SudokuVierkant*) malloc(sizeof(SudokuVierkant));
-	s->gegevens[0][0].vierkant = v1;
-	v1->vierkantnr = 1;
-
-
-	for(i=0; i < NEGEN ; i++){
-		
-			for(j=0; j < NEGEN ; j++){
-				if( (i%3 == 0) && (j%3 == 0) ) {
-					v1 = (SudokuVierkant*) malloc(sizeof(SudokuVierkant));
-					v1->vierkantnr = i + j + 1;
-				}
-
-
-
-	
-		}
-	}
-
-
-
-
 	
 	//linken tussen vakje -> kolom
 	//linken tussen vakjes
@@ -106,15 +80,47 @@ Sudoku* initlizeSudoku (){
 		r1=r1->onder;
 	}
 
+		//vierkant
+	c=1;
+	for(i=0; i < NEGEN ; i=i+3){
+		
+			for(j=0; j < NEGEN ; j=j+3){
+					v1 = (SudokuVierkant*) malloc(sizeof(SudokuVierkant));
+					v1->vierkantnr = c;
+					c++;
+					v1->linksboven = (&(s->gegevens[i][j]));
+					for(a=0; a <DRIE ; a++){
+						for(b=0; b <3 ; b++){
+							s->gegevens[i+a][j+b].vierkant = v1;
+						}
+					}
+					for(a=0; a <DRIE ; a++){
+						v1->rijen[a] = s->gegevens[i+a][j].rij;
+					}
+					for(a=0; a <DRIE ; a++){
+						v1->kolommen[a] = s->gegevens[i][j+a].kolom;
+					}
+
+	
+		}
+	}
 
 	return s;
 }
 
 
 void free_sudoku ( Sudoku * s){
-	unsigned int i;
+	unsigned int i,j;
 	SudokuKolom *volgendekolom=NULL, *vorigekolom=NULL ;
 	SudokuRij *volgenderij=NULL, *vorigerij=NULL ;
+
+
+	//vierkant
+	for(i=0; i < NEGEN ; i=i+3){
+		for(j=0; j < NEGEN ; j=j+3){
+			free(s->gegevens[i][j].vierkant);
+		}
+	}
 
 	//kolom
 	vorigekolom=s->eerstekolom;
@@ -225,6 +231,61 @@ void print_sudoku_rijkolom(Sudoku* s){
 		printf(" %i%i \n", vakje->rijnr, vakje->kolomnr);
 		vakje=vakje->links;
 
+	}
+
+	vakje=&(s->gegevens[5][4]);
+	printf("r: %i  k: %i", vakje->rij->rijnr, vakje->kolom->kolomnr);
+	printf("vkn: %i  ", vakje->vierkant->vierkantnr);
+	for(i=0; i < DRIE; i++){
+		printf("r: %i ", vakje->vierkant->rijen[i]->rijnr);
+		printf("k: %i ", vakje->vierkant->kolommen[i]->kolomnr);
+	}
+
+
+}
+
+
+
+void print_sudoku_inhoud(Sudoku* s){
+	unsigned int i,j;
+
+	//header
+	printf("   |");
+	for(j=0; j < NEGEN ; j++){
+		printf("  %i ", j+1);
+	}
+	printf("\n");
+	printf("   |");
+	for(j=0; j < NEGEN ; j++){
+		printf(" RK ");
+	}
+	printf("\n");
+	printf("   |");
+	for(j=0; j < NEGEN ; j++){
+		printf("____");
+	}
+	printf("\n");
+
+	for(i=0; i < NEGEN ; i++){
+		if(i % 3 == 0  && i!= 0){
+			printf("   |");
+			for(j=0; j < NEGEN ; j++){
+				printf("----");
+			}
+			printf("\n");
+		}
+		
+		//header ervoor
+		printf("%i  |",i+1);
+		
+		for(j=0; j < NEGEN ; j++){
+			if(j % 3 == 0  && j != 0) printf("|");	
+			printf(" %i%i ", s->gegevens[i][j].rijnr,s->gegevens[i][j].kolomnr);
+			
+		}
+		printf("|");	
+		printf("\n");
+		
 	}
 
 }

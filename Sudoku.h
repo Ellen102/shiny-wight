@@ -39,6 +39,7 @@ typedef struct SudokuVierkant{
 	unsigned int vierkantnr;
 	struct SudokuRij* rijen[3];
 	struct SudokuKolom*kolommen[3];
+	struct SudokuVakje* linksboven;
 } SudokuVierkant;
 
 typedef struct SudokuRij{
@@ -62,7 +63,7 @@ typedef struct SudokuKolom{
 Sudoku* initlizeSudoku ();
 void free_sudoku (Sudoku *);
 void print_sudoku_rijkolom(Sudoku*);
-
+void print_sudoku_inhoud(Sudoku*);
 
 
 #endif
