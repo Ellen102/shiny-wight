@@ -68,14 +68,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Definitie.h" />
     <ClInclude Include="Printer.h" />
-    <ClInclude Include="Reader.h" />
     <ClInclude Include="Sudoku.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Defenitie.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="Printer.c" />
     <ClCompile Include="Sudoku.c" />
+    <ClCompile Include="test.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

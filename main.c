@@ -5,49 +5,70 @@
 #include <crtdbg.h>
 #include "Sudoku.h"
 #include "Printer.h"
-
-#define PRINTNEWLINE printf("\n")
-#define PRINTBIN(n) print_bin(n);printf("  %i  ",n);printf("\n")
-
+#include "Definitie.h";
 
 int main(void)
 {
+	char* a = "";
+	int r,k,n,c;
+	Sudoku* s = initlizeSudoku();
 	//In case of memory leaks the number of the datablock can be used here
 	//_CrtSetBreakAlloc({NR}); 
 
-	unsigned int test = 1, a,b,c;
-	unsigned int counter = 0;
-	Sudoku* s = initlizeSudoku();
+	while(1){
+		
+		printf("-insert ( Rij ,	Kolom ) =nr \n-delete ( Rij ,	Kolom )	\n-exit \n-new	\n");
+		print_sudoku_inhoud(s);
+		printf("\n\n\n");
+		printf("you: ");
+		scanf("%s", a);
 
-	
-	print_bin_Header(); printf("\n");
+		if(strncmp(a, "insert", 10) == 0){
+			c=scanf(" ( %i , %i ) = %i", &r,&k,&n);
+			
+			if(controleer_grenzen(r,k,n) == OK && c==3){
+				c=insert_sudoku(s,r,k,n);
+				if(c==MOGELIJK){
+					printf("invoegen: rij=%i kolom=%i nummer=%i \n",  r,k,n);
+				}else if(c==ONMOGELIJK){
+					printf("onmogelijk");
+				}else if(c==BEZET){
+					printf("al bezet");
+				}else if(c==UITGESLOTEN){
+					printf("vormt een probleem");
+				}
 
-	for(counter=0; counter < 9; counter++){
-	
-		print_bin(test);
-		printf("  %i  ", test);
-		printf("\n");
-		test = test << 1; 
+			}else{
+				if(c < 3){
+				scanf("%s", a);
+				}
+				printf("ERROR: foute waarde");
+			}
 
+		}else if(strncmp(a, "delete", 10) == 0){
+			c=scanf(" ( %i , %i )", &r,&k);
+			
+			if(controleer_grenzen(r,k,5) == OK && c==2){
+				printf("delete:  rij=%i kolom=%i \n",  r,k);
+			}else{
+				if(c < 2){
+				scanf("%s", a);
+				}
+				printf("ERROR: foute waarde");
+			}
+		}else if(strncmp(a, "exit", 10) == 0){
+			printf("exit: \n");
+			break;
+
+		}else if(strncmp(a, "new", 10) == 0){
+			printf("new:  \n");
+
+		}else{
+			printf("ERROR: not a command: %s\n",a);
+		}
+		printf("\n\n");
 	}
-	
-	
-	a = 70;
-	PRINTBIN(a);
-	
-	PRINTBIN(1<<(6-1));
-	b = a | (1<<(6-1));
-	PRINTBIN(b);
-	c = b & (1<<(7-1));
-	PRINTBIN(c);
-
-	PRINTNEWLINE;
-
-	print_sudoku_rijkolom(s);
-	PRINTNEWLINE;PRINTNEWLINE;PRINTNEWLINE;PRINTNEWLINE;
-	print_sudoku_inhoud(s);
-
-
+		
 
 
 	free_sudoku(s);
@@ -56,3 +77,4 @@ int main(void)
 	return 0;
 
 }
+

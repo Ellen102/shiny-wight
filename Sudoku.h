@@ -3,6 +3,7 @@
 #include <string.h>
 #include <math.h>
 #include <crtdbg.h>
+#include "Definitie.h";
 
 #ifndef SUDOKU
 #define SUDOKU
@@ -11,6 +12,8 @@
 #define DRIE 3
 #define NEGEN 9
 #define MAX 9
+
+
 
 typedef enum { F, T } Bool;
 
@@ -64,6 +67,8 @@ Sudoku* initlizeSudoku ();
 void free_sudoku (Sudoku *);
 void print_sudoku_rijkolom(Sudoku*);
 void print_sudoku_inhoud(Sudoku*);
+//gaat er vanuit dat r en k en n binnen de grenzen liggen
+int insert_sudoku(Sudoku* s,int r,int k,int n);
 
 
 #endif

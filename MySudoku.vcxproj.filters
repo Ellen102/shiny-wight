@@ -18,10 +18,10 @@
     <ClInclude Include="Sudoku.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Reader.h">
+    <ClInclude Include="Printer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Printer.h">
+    <ClInclude Include="Definitie.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -29,10 +29,16 @@
     <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Sudoku.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Printer.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Sudoku.c">
+    <ClCompile Include="test.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Defenitie.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
