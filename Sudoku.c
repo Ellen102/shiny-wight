@@ -1,6 +1,68 @@
 #include "Sudoku.h"
+#include "Printer.h"
+
+int eenmogelijkheid(int n){
+	int xor,i;
+	xor = n ^ FULL;
+	for(i=1;i<=9;i++){
+		if(xor == (1<<i)){
+			print_bin(n); printf("\n");
+			print_bin(FULL); printf("\n");
+			print_bin(xor); printf("\n");
+			return i;
+		}
+
+	}
 
 
+	return 0;
+
+}
+
+int vind_uniek(Sudoku* s, int r, int k){
+	SudokuVakje * vakje=NULL, *volgende=NULL, *next=NULL;
+	int i,j;
+
+	r=r-1;
+	k=k-1;
+	vakje = &(s->gegevens[r][k]);
+
+	volgende=vakje->rij->eerste;
+	while(volgende != NULL){
+		if(volgende->gevonden == F){
+			eenmogelijkheid(volgende->inhoud);
+		}
+		volgende=volgende->rechts;
+	}
+
+	volgende=vakje->kolom->eerste;
+	while(volgende != NULL){
+		if(volgende->gevonden == F){
+			eenmogelijkheid(volgende->inhoud);
+		}
+		volgende=volgende->onder;
+	}
+
+	volgende=vakje->vierkant->linksboven;
+	next=volgende;
+	for(i=0;i<3;i++){
+		for(j=0;j<3;j++){
+			if(volgende->gevonden == F){
+				eenmogelijkheid(volgende->inhoud);
+			}
+			volgende=volgende->rechts;
+		}
+		next=next->onder;
+		volgende=next;
+	}
+
+
+
+return 0;
+}
+
+
+//vul de waarde in en schrap het als mogelijkheid bij de andere
 int insert_sudoku(Sudoku* s,int r,int k,int n){
 	SudokuVakje * vakje=NULL, *volgende=NULL, *next=NULL;
 	int i,j;

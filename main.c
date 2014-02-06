@@ -30,6 +30,7 @@ int main(void)
 				c=insert_sudoku(s,r,k,n);
 				if(c==MOGELIJK){
 					printf("invoegen: rij=%i kolom=%i nummer=%i \n",  r,k,n);
+					vind_uniek(s,r,k);
 				}else if(c==ONMOGELIJK){
 					printf("onmogelijk");
 				}else if(c==BEZET){

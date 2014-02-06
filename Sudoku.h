@@ -12,6 +12,7 @@
 #define DRIE 3
 #define NEGEN 9
 #define MAX 9
+#define FULL 511
 
 
 
@@ -69,6 +70,8 @@ void print_sudoku_rijkolom(Sudoku*);
 void print_sudoku_inhoud(Sudoku*);
 //gaat er vanuit dat r en k en n binnen de grenzen liggen
 int insert_sudoku(Sudoku* s,int r,int k,int n);
+int vind_uniek(Sudoku* s, int r, int k);
+int eenmogelijkheid(int);
 
 
 #endif
