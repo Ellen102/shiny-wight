@@ -24,6 +24,9 @@
     <ClInclude Include="Definitie.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Filereader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
@@ -39,6 +42,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Defenitie.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Filereader.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

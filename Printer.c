@@ -1,5 +1,24 @@
 #include "Printer.h"
 
+void print_value_vakje(Sudoku* s, int r, int k){
+	SudokuVakje *vakje=NULL;
+	vakje = &(s->gegevens[r-1][k-1]);
+	if(vakje->gevonden == T){
+	
+		printf("gevonden: (%i,%i)=%i\n", r,k, vakje->inhoud);
+
+	}else{
+	
+		printf("nog niet gevoden\n");
+		print_bin_Header(); printf("\n");
+		print_bin(vakje->inhoud);printf("\n");
+	}
+
+	
+
+}
+
+
 
 void print_bin(unsigned int getal){
 

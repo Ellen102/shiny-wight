@@ -3,7 +3,7 @@
 #include <string.h>
 #include <math.h>
 #include <crtdbg.h>
-#include "Definitie.h";
+#include "Definitie.h"
 
 #ifndef SUDOKU
 #define SUDOKU
@@ -62,7 +62,6 @@ typedef struct SudokuKolom{
 	struct SudokuVakje* eerste;
 } SudokuKolom;
 
-
 //initilaliseert een lege sudoku met op elke plaats alle mogelijkheden
 Sudoku* initlizeSudoku ();
 void free_sudoku (Sudoku *);
@@ -70,8 +69,11 @@ void print_sudoku_rijkolom(Sudoku*);
 void print_sudoku_inhoud(Sudoku*);
 //gaat er vanuit dat r en k en n binnen de grenzen liggen
 int insert_sudoku(Sudoku* s,int r,int k,int n);
-int vind_uniek(Sudoku* s, int r, int k);
+void vind_uniek(Sudoku* s, int r, int k);
 int eenmogelijkheid(int);
+int insert_vakje(Sudoku* s, SudokuVakje* vakje, int n);
+int simple_insert(Sudoku* s, SudokuVakje* vakje, int n);
+
 
 
 #endif

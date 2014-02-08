@@ -69,11 +69,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Definitie.h" />
+    <ClInclude Include="Filereader.h" />
     <ClInclude Include="Printer.h" />
     <ClInclude Include="Sudoku.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Defenitie.c" />
+    <ClCompile Include="Filereader.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="Printer.c" />
     <ClCompile Include="Sudoku.c" />

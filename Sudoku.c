@@ -1,81 +1,30 @@
 #include "Sudoku.h"
 #include "Printer.h"
 
-int eenmogelijkheid(int n){
-	int xor,i;
-	xor = n ^ FULL;
-	for(i=1;i<=9;i++){
-		if(xor == (1<<i)){
-			print_bin(n); printf("\n");
-			print_bin(FULL); printf("\n");
-			print_bin(xor); printf("\n");
-			return i;
-		}
-
-	}
 
 
-	return 0;
+int simple_insert(Sudoku* s, SudokuVakje* vakje, int n){
+	int r;
+	r=insert_vakje(s,vakje,n);
+	vind_uniek(s,vakje->rijnr,vakje->kolomnr);
+	return r;
 
 }
 
-int vind_uniek(Sudoku* s, int r, int k){
-	SudokuVakje * vakje=NULL, *volgende=NULL, *next=NULL;
+int insert_vakje(Sudoku* s, SudokuVakje* vakje, int n){
+	int r,k;
+	SudokuVakje *volgende=NULL, *next=NULL;
 	int i,j;
-
-	r=r-1;
-	k=k-1;
-	vakje = &(s->gegevens[r][k]);
-
-	volgende=vakje->rij->eerste;
-	while(volgende != NULL){
-		if(volgende->gevonden == F){
-			eenmogelijkheid(volgende->inhoud);
-		}
-		volgende=volgende->rechts;
-	}
-
-	volgende=vakje->kolom->eerste;
-	while(volgende != NULL){
-		if(volgende->gevonden == F){
-			eenmogelijkheid(volgende->inhoud);
-		}
-		volgende=volgende->onder;
-	}
-
-	volgende=vakje->vierkant->linksboven;
-	next=volgende;
-	for(i=0;i<3;i++){
-		for(j=0;j<3;j++){
-			if(volgende->gevonden == F){
-				eenmogelijkheid(volgende->inhoud);
-			}
-			volgende=volgende->rechts;
-		}
-		next=next->onder;
-		volgende=next;
-	}
+	r= vakje->rijnr -1;
+	k= vakje->kolomnr -1;
 
 
-
-return 0;
-}
-
-
-//vul de waarde in en schrap het als mogelijkheid bij de andere
-int insert_sudoku(Sudoku* s,int r,int k,int n){
-	SudokuVakje * vakje=NULL, *volgende=NULL, *next=NULL;
-	int i,j;
-
-	r=r-1;
-	k=k-1;
-	vakje = &(s->gegevens[r][k]);
-	if(s->gegevens[r][k].gevonden==T)return BEZET;
+	if(vakje->gevonden==T)return BEZET;
 	if(vakje->inhoud & (1<<(n-1)) )return ONMOGELIJK;
 
-	s->gegevens[r][k].inhoud=n;
-	s->gegevens[r][k].gevonden=T;
-	
+	vakje->inhoud=n;
+	vakje->gevonden=T;
+
 	volgende=vakje->rij->eerste;
 	vakje->rij->inhoud= vakje->rij->inhoud | (1<<(n-1));
 	while(volgende != NULL){
@@ -99,7 +48,7 @@ int insert_sudoku(Sudoku* s,int r,int k,int n){
 	next=volgende;
 	for(i=0;i<3;i++){
 		for(j=0;j<3;j++){
-			if(volgende->gevonden == F){
+			if(volgende->gevonden == F && (i != r) && (j!=k)) {
 				volgende->inhoud = volgende->inhoud | (1<<(n-1));
 			}
 			volgende=volgende->rechts;
@@ -109,6 +58,82 @@ int insert_sudoku(Sudoku* s,int r,int k,int n){
 	}
 
 	return MOGELIJK;
+
+}
+
+int eenmogelijkheid(int n){
+	int xor,i;
+	xor = n ^ FULL;
+	for(i=0;i<=9;i++){
+		if(xor == (1<<i)){
+			return i+1;
+
+		}
+	}
+	return 0;
+}
+
+void vind_uniek(Sudoku* s, int r, int k){
+	SudokuVakje * vakje=NULL, *volgende=NULL, *next=NULL;
+	int i,j,v;
+
+	r=r-1;
+	k=k-1;
+	vakje = &(s->gegevens[r][k]);
+	volgende=vakje->rij->eerste;
+	while(volgende != NULL){
+		if(volgende->gevonden == F){
+			v=eenmogelijkheid(volgende->inhoud);
+			if(v != 0){
+				simple_insert(s,volgende,v);
+			}
+		}
+		volgende=volgende->rechts;
+	}
+
+	volgende=vakje->kolom->eerste;
+	while(volgende != NULL){
+		if(volgende->gevonden == F){
+			v=eenmogelijkheid(volgende->inhoud);
+			if(v != 0){
+			simple_insert(s,volgende,v);
+			}
+		}
+		volgende=volgende->onder;
+	}
+
+	volgende=vakje->vierkant->linksboven;
+	next=volgende;
+	for(i=0;i<3;i++){
+		for(j=0;j<3;j++){
+			if(volgende->gevonden == F && (i != r) && (j!=k)) {
+				 v=eenmogelijkheid(volgende->inhoud);
+				if(v != 0){
+					simple_insert(s,volgende,v);
+				}
+			}
+			volgende=volgende->rechts;
+		}
+		next=next->onder;
+		volgende=next;
+	}
+
+
+
+}
+
+
+//vul de waarde in en schrap het als mogelijkheid bij de andere
+int insert_sudoku(Sudoku* s,int r,int k,int n){
+	SudokuVakje * vakje=NULL, *volgende=NULL, *next=NULL;
+	int i,j;
+
+	r=r-1;
+	k=k-1;
+	vakje = &(s->gegevens[r][k]);
+
+	return simple_insert(s,vakje,n);
+
 }
 
 
