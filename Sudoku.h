@@ -73,7 +73,8 @@ void vind_uniek(Sudoku* s, int r, int k);
 int eenmogelijkheid(int);
 int insert_vakje(Sudoku* s, SudokuVakje* vakje, int n);
 int simple_insert(Sudoku* s, SudokuVakje* vakje, int n);
-
+void clear_sudoku(Sudoku* s);
+int del_vakje_sudoku(Sudoku* s , SudokuVakje* vakje);
 
 
 #endif

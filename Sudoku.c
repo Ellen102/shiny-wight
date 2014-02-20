@@ -1,6 +1,70 @@
 #include "Sudoku.h"
 #include "Printer.h"
 
+int del_vakje_sudoku(Sudoku* s , SudokuVakje* vakje){
+	int i,j,oorspronkelijk,k,r;
+	SudokuVakje* omliggend,ander;
+	oorspronkelijk = vakje->inhoud;
+	vakje->inhoud = 0;
+	vakje->gevonden = F;
+
+	//bepaal nieuwe inhoud 
+	// bekijk de andere vakjes
+	omliggend=vakje->rechts;
+	for(i=vakje->rijnr; i<NEGEN; i++){
+		if(omliggend->gevonden == F){
+			//kijken of er geen ander vakje op dit vakje dezelfde waarde heeft of de oorspronkelijke waarde anders kan het toch nog neit
+			for(k=0;k<NEGEN;k++){
+				//.... de kolom en vierkant afgaan 
+				//if(ander.inhoud er al in zit continue;
+			}
+
+			//toevoegen aan het andere
+			omliggend->inhoud = vakje->inhoud & (1<<(oorspronkelijk-1) ^ FULL);
+
+		}else{
+			vakje->inhoud = vakje->inhoud | (1<<(omliggend->inhoud-1)); //de inhoud kan geen mogelijkheid zijn meer voor vakje
+		}
+	
+	}
+	for(i=vakje->rijnr; i>=0; i--){
+	
+	
+	}
+
+	return -1;
+}
+
+
+
+
+void clear_sudoku(Sudoku* s){
+	SudokuKolom *k1=NULL;
+	SudokuRij *r1=NULL;
+	int i,j;
+	 
+	k1 = s->eerstekolom;
+	r1 = s->eersterij;
+
+	for(i=0; i < NEGEN ; i++){
+		for(j=0; j<NEGEN; j++){
+			s->gegevens[i][j].inhoud = 0;
+			s->gegevens[i][j].gevonden = F;
+		}
+		k1->inhoud = 0;
+		r1->inhoud =0;
+		k1 = k1->rechts;
+		r1 = r1->onder;
+	}
+
+	for(i=0; i < NEGEN ; i=i+3){
+		for(j=0; j < NEGEN ; j=j+3){
+			s->gegevens[i][j].vierkant->inhoud = 0;
+		}
+	}
+	
+
+}
 
 
 int simple_insert(Sudoku* s, SudokuVakje* vakje, int n){
@@ -117,7 +181,7 @@ void vind_uniek(Sudoku* s, int r, int k){
 		next=next->onder;
 		volgende=next;
 	}
-
+	 
 
 
 }
@@ -126,7 +190,6 @@ void vind_uniek(Sudoku* s, int r, int k){
 //vul de waarde in en schrap het als mogelijkheid bij de andere
 int insert_sudoku(Sudoku* s,int r,int k,int n){
 	SudokuVakje * vakje=NULL, *volgende=NULL, *next=NULL;
-	int i,j;
 
 	r=r-1;
 	k=k-1;

@@ -20,6 +20,7 @@ int main(void)
 		insert_sudoku(s,i,1,i);
 	
 	}*/
+	
 	print_sudoku_inhoud(s);
 	read_sudoku_from_file("S4.txt",s);
 
@@ -34,7 +35,7 @@ int main(void)
 
 	while(1){
 		
-		printf("-insert ( Rij ,	Kolom ) =nr \n-delete ( Rij ,	Kolom )	\n-exit \n-new	\n-save	\n-vakje (Rij , Kolom )	\n");
+		printf("-insert ( Rij ,	Kolom ) =nr \n-delete ( Rij ,	Kolom )	\n-exit \n-clear	\n-save	\n-vakje (Rij , Kolom )	\n");
 		print_sudoku_inhoud(s);
 		printf("\n\n\n");
 		LABEL:printf("you: ");
@@ -95,6 +96,9 @@ int main(void)
 				printf("ERROR: foute waarde");
 			}
 			goto LABEL;
+		} if(strncmp(a, "clear", 10) == 0){
+			clear_sudoku(s);
+
 		}else{
 			printf("ERROR: not a command: %s\n",a);
 		}

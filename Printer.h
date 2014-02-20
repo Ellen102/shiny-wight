@@ -1,6 +1,6 @@
 #include <string.h>
 #include <stdio.h>
-#include "Sudoku.h";
+#include "Sudoku.h"
 
 #ifndef PRINTER
 #define PRINTER
